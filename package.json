@@ -1,0 +1,22 @@
+{
+  "name": "request-limiter",
+  "version": "1.1.0",
+  "description": "Limits promises execution in order to reduce load.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "build",
+    "build": "tsc",
+    "test": "npx mocha ./tests/index.js"
+  },
+  "author": "demid.mosko@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "mocha": "^5.2.0",
+    "randomstring": "^1.1.5",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {}
+}

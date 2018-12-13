@@ -1,3 +1,4 @@
 delay after each request
 delay after rejections
 add runKit sample
+calculate delay in a jobFunction

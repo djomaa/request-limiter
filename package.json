@@ -22,5 +22,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:djomaa/request-limiter.git"
-  }
+  },
+  "keywords": ["request", "promise", "limiter", "limit"]
 }

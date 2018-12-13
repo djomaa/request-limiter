@@ -1,6 +1,6 @@
 {
   "name": "request-limiter",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Limits promises execution in order to reduce load.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,5 +18,9 @@
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:djomaa/request-limiter.git"
+  }
 }

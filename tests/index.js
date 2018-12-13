@@ -2,7 +2,6 @@ const randomString = require('randomstring');
 const { fillArray, randomInt, findMin, findMax } = require('../utils');
 const RequestLimiter = require('../dist').default;
 const assert = require('assert');
-const fs = require('fs'); // remove
 
 describe('Testing', () => {
 

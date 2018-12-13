@@ -35,23 +35,41 @@ main()
         process.exit(1);
     });
 ```
-###API
-`constructor(maxRequests: number, autoStart?: boolean);` 
-
+### API
+```
+constructor(maxRequests: number, autoStart?: boolean, retry: {
+  maxCount?: number;
+  blockDelayFormula?: null | ((index: number) => number);
+  immediately?: boolean;
+});
+```
 ---
 
-`public maxRequests: number;` Number of maximum active promises.  
+`public maxRequests: number` Number of maximum active promises.  
 * Can be changed in progress
 ---
 
-`public autoStart: boolean;`
+`public autoStart: boolean`
 If true, starts execution after the first **add**
 * Default `true`  
 ---
 
-`add<T>(func: () => Promise<T>): Promise<T>;` Adds a promise function to execute queue.
+`public retry.maxCount: number` Max retries number
+* Default `0`
+---
+`public retry.immediately: boolean` If true and error has occurred, execute failed job right after its rejection
+* Default `false`
+* `true` value overrides retry.blockDelayFormula
+---
+
+`public retry.blockDelayFormula: null|((index: number) => number)` Function accept retry index and returns delay to call next job
+* Default `10 * (2 ** index)`
+* This parameter doesn't make any sense if `retry.immediately` is passed
+---
+
+`add<T>(func: () => Promise<T>): Promise<T>` Adds a promise function to execute queue.
 * If you pass not a function that returns a promise, it will throw an error when executing the function
 ---
 
-`start(): Promise<void[]>;` Function to start execution
+`start(): Promise<void[]>` Function to start execution
 * Returns promises of jobs that have been started

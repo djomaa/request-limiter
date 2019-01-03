@@ -57,6 +57,7 @@ export default class RequestLimiter {
 			this._processJob(job);
 		} else if (this.retry.blockDelayFormula) {
 			this._blocked = true;
+			this._queue.push(job);
 			const now = (new Date).getTime();
 			if (this._retry.timeout) {
 				if (this._retry.timeoutEndTimestamp < now) return;
@@ -69,7 +70,6 @@ export default class RequestLimiter {
 				this._blocked = false;
 				this.start();
 			}, delay);
-			this._queue.push(job);
 		}
 	}
 

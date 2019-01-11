@@ -11,7 +11,7 @@ debug.process.color = 50;
 debug.start.color = 70;
 debug.add.color = 20;
 // setTimeout(() => { console.log(debug.)})
-export const TIMEOUT = 1000 * 10;
+// TODO: refactor debug
 
 export const ERROR = {
 	NOT_A_PROMISE_FUNCTION: 'function should return promise',

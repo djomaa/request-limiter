@@ -66,15 +66,13 @@ export default class RequestLimiter {
 	private _handleError(job: Job, error: Error) {
 		const index = this._increaseRetryIndex(job.func);
 		debug.error('job rejected %d time(s)', index);
+
 		if (index > this.retry.maxCount) {
 			console.log('reject handleError');
 			debug.error('more than max retry count. throwing an error');
 			job.reject(error);
 			return;
 		}
-
-
-		console.log('###################', job)
 
 		this._blocked = true;
 		const now = (new Date).getTime();
@@ -107,27 +105,19 @@ export default class RequestLimiter {
 	private async _processJob(job: Job) {
 		try {
 			debug.process('starting a job');
-			const { func, resolve, reject} = job;
+			const { func, resolve } = job;
 			this._activeNumber += 1;
-			// await new Promise(async (resolve, reject) => {
-			// 	try {
-			// 		job.resolve(await func());
-			// 	}
-			// });
-			const promise = func()
-				// .catch((err) => { console.log(11111111111111111111111111111); this._handleError(job, err); });
-			if (!(promise instanceof Promise)) throw new Error(ERROR.NOT_A_PROMISE_FUNCTION);
-			const timeout = setTimeout(() => { console.log('reject timeout'); debug.process('timeout rejection'); reject(ERROR.TIMEOUT); }, TIMEOUT);
-			promise.then((result) => { debug.process('clearing timeout'); clearTimeout(timeout); return result; });
-			resolve(await promise);
+			resolve(await func().then((result) => {
+				debug.process('job done');
+				return result;
+			}));
 			this.start();
 		} catch (error) {
-			console.log(222222222222222222222222222222222);
 			debug.process('got an error');
 			this._handleError(job, error);
-		// } finally {
-		// 	debug.process('decreasing number');
-		// 	this._activeNumber -= 1;
+		} finally {
+			debug.process('decreasing number');
+			this._activeNumber -= 1;
 		}
 	}
 

@@ -12,25 +12,19 @@ describe('Testing', () => {
 	});
 
 	it('retry with no fatal rejections', async () => {
-		const requester = new RequestLimiter(2, true, { maxCount: 1, delayFormula: (i) => 1000 });
-		let index = 0;
-		try {
-			const res1 = await requester.add(() => (new Promise((res, rej) => {
-				index += 1;
-
-				if (index < 2) {
-					console.log('!!!!', index);
-					rej(new Error('asd'));
-				}
-				res();
-			}))
-				// .catch((err) => console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!error', err))
-			);
-		} catch (e) {
-			console.log(e.stackTrace);
-		}
-
-
+		const expected = randomString.generate(10);
+		const requester = new RequestLimiter(2, true, { maxCount: 1, delayFormula: () => 5 });
+		let executesCount = 0;
+		const actual = await requester.add(() => new Promise((resolve, reject) => {
+			executesCount += 1;
+			if (executesCount < 2) reject(new Error());
+			else resolve(expected);
+		}));
+		assert.strictEqual(expected, actual);
 	});
+
+	// TODO: delay test
+	// TODO: fatal rejection
+	// TODO: throw test fatal & not fatal
 
 });

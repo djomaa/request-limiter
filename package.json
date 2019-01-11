@@ -1,6 +1,6 @@
 {
   "name": "request-limiter",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Limits promises execution in order to reduce load.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

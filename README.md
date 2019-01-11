@@ -35,6 +35,10 @@ main()
         process.exit(1);
     });
 ```
+### CHANGELOG
+* 1.3.0
+  * Now if a function passed to `.add` does not return a promise, an error is **not** thrown.
+  * `retry.immediately` constructor option was removed
 ### API
 ```
 constructor(maxRequests: number, autoStart?: boolean, retry: {
@@ -56,10 +60,6 @@ If true, starts execution after the first **add**
 
 `public retry.maxCount: number` Max retries number
 * Default `0`
----
-`public retry.immediately: boolean` If true and error has occurred, execute failed job right after its rejection
-* Default `false`
-* `true` value overrides retry.blockDelayFormula
 ---
 
 `public retry.blockDelayFormula: null|((index: number) => number)` Function accept retry index and returns delay to call next job

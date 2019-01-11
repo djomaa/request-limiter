@@ -18,10 +18,17 @@
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "debug": "^4.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:djomaa/request-limiter.git"
   },
-  "keywords": ["request", "promise", "limiter", "limit"]
+  "keywords": [
+    "request",
+    "promise",
+    "limiter",
+    "limit"
+  ]
 }
